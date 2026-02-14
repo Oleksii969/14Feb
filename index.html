@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Тільки для тебе ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Caveat:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --bg-gradient: linear-gradient(180deg, #fff0f3 0%, #ffccd5 100%);
+            --glass: rgba(255, 255, 255, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            color: #590d22;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- ПЛАВАЮЧЕ МЕНЮ --- */
+        nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 10px 25px;
+            border-radius: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid white;
+        }
+
+        nav a { text-decoration: none; font-size: 1.2rem; filter: grayscale(1); transition: 0.3s; }
+        nav a:hover { transform: scale(1.2); filter: grayscale(0); }
+
+        /* --- HEADER --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .heart-main {
+            font-size: 80px;
+            animation: pulse 1.5s infinite;
+        }
+
+        header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        /* ЛІЧИЛЬНИК */
+        .timer-box {
+            background: var(--glass);
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin-top: 20px;
+            border: 1px solid white;
+            display: flex;
+            gap: 15px;
+        }
+        .timer-unit span { display: block; font-weight: bold; font-size: 1.2rem; }
+        .timer-unit label { font-size: 0.6rem; text-transform: uppercase; }
+
+        /* --- СЕКЦІЯ ФОТО (ПОЛАРОЇД) --- */
+        .section-title {
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            margin: 40px 0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: center;
+            padding-bottom: 50px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 12px 12px 35px 12px;
+            width: 85%;
+            max-width: 350px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transform: rotate(var(--r));
+            transition: 0.4s;
+        }
+        .polaroid img { width: 100%; height: 300px; object-fit: cover; }
+        .polaroid p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* --- КНОПКА КОМПЛІМЕНТІВ --- */
+        .compliment-section {
+            background: var(--primary);
+            color: white;
+            padding: 50px 25px;
+            text-align: center;
+            margin: 50px 0;
+            border-radius: 40px 40px 0 0;
+        }
+
+        #compliment-display {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .magic-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* --- ФУТЕР --- */
+        footer {
+            padding: 100px 20px 120px;
+            text-align: center;
+            background: white;
+        }
+
+        /* АНІМАЦІЇ */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Падаючі серця */
+        .falling-heart {
+            position: fixed;
+            top: -20px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body onclick="spawnHeart(event)">
+
+    <nav>
+        <a href="#home">🏠</a>
+        <a href="#photos">📸</a>
+        <a href="#magic">✨</a>
+        <a href="#footer">💌</a>
+    </nav>
+
+    <header id="home">
+        <div class="heart-main">❤️</div>
+        <h1>Для Анастасії Іванівни😜</h1>
+        <p>Дуже ціную тебе і твій світ</p>
+         
+        
+        <div class="timer-box" id="timer">
+            <div class="timer-unit"><span id="days">0</span><label>Днів</label></div>
+            <div class="timer-unit"><span id="hours">0</span><label>Год</label></div>
+            <div class="timer-unit"><span id="mins">0</span><label>Хв</label></div>
+            <div class="timer-unit"><span id="secs">0</span><label>Сек</label></div>
+        </div>
+    </header>
+
+    <section id="photos">
+        <h2 class="section-title">Яскраві Моменти</h2>
+        <div class="gallery">
+            <div class="polaroid" style="--r: -3deg">
+                <img src="images/smile.jpg" alt="Фото 1">
+                <p>Твоя неймовірна посмішка</p>
+            </div>
+            <div class="polaroid" style="--r: 2deg">
+                <img src="images/yy.jpg" alt="Фото 2">
+                <p>Ті самі щасливі очі</p>
+            </div>
+            <div class="polaroid" style="--r: -2deg">
+                <img src="images/our.jpg" alt="Фото 3">
+                <p>Разом крізь усе...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="compliment-section" id="magic">
+        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem;">Трохи магії для тебе</p>
+        <div id="compliment-display">Натисни кнопку, щоб прочитати щось приємне...</div>
+        <button class="magic-btn" onclick="showCompliment()">Зробити мені приємно ✨</button>
+    </section>
+
+    <footer id="footer">
+        <h2 class="section-title">Я посміхаюсь дивлячись на тебе</h2>
+        <p>Це лише маленька частина того, як сильно ти мені дорога. <br> Дякую за кожен день!</p>
+        <div style="font-size: 2rem; margin-top: 20px;">🌹🌹🌹</div>
+    </footer>
+
+    <script>
+         
+        const startDate = new Date(2024, 6, 10, 20, 0); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            document.getElementById('days').innerText = Math.floor(diff / 86400000);
+            document.getElementById('hours').innerText = Math.floor((diff / 3600000) % 24);
+            document.getElementById('mins').innerText = Math.floor((diff / 60000) % 60);
+            document.getElementById('secs').innerText = Math.floor((diff / 1000) % 60);
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // КОМПЛІМЕНТИ
+        const compliments = [
+            "Ти вмієш бути сильною навіть тоді, коли ніхто цього не бачить.",
+            "Твій сміх — моя улюблена музика. 🎶",
+            "Ти набагато глибша, ніж показуєш з першого погляду. 🌊",
+            "Ти дуже щира, навіть коли боішся це показати. 💎",
+            "Я обожнюю твій погляд. 💖",
+            "Ти — моє найтепліше сонечко. ☀️",
+            "Кожна хвилина з тобою — це подарунок. 🎁",
+            "Ти неймовірно талановита і розумна! 🧠",
+            "Твоя посмішка - небезпечна зброя)"
+        ];
+
+        function showCompliment() {
+            const display = document.getElementById('compliment-display');
+            const random = compliments[Math.floor(Math.random() * compliments.length)];
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = random;
+                display.style.opacity = 1;
+            }, 300);
+        }
+
+        // КЛІК-ЕФЕКТ (Сердечка при натисканні)
+        function spawnHeart(e) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('falling-heart');
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        // АВТО-СЕРДЕЧКА
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['❤️', '💖', '💕', '🌸'][Math.floor(Math.random()*4)];
+            heart.classList.add('falling-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.duration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 15 + 10 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 600);
+    </script>
+</body>
+</html>
